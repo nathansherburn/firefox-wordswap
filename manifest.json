@@ -1,0 +1,42 @@
+{
+  "manifest_version": 2,
+  "name": "WordSwap",
+  "version": "1.0",
+  "description": "Replace English words with Chinese words for language practice on specific websites",
+  
+  "permissions": [
+    "activeTab",
+    "storage",
+    "https://api.openai.com/*",
+    "*://twitter.com/*",
+    "*://*.twitter.com/*",
+    "*://x.com/*",
+    "*://*.x.com/*",
+    "*://news.ycombinator.com/*",
+    "*://hckrnews.com/*",
+    "*://youtube.com/*",
+    "*://*.youtube.com/*"
+  ],
+  
+  "options_ui": {
+    "page": "settings.html",
+    "browser_style": false
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "*://twitter.com/*",
+        "*://*.twitter.com/*",
+        "*://x.com/*",
+        "*://*.x.com/*",
+        "*://news.ycombinator.com/*",
+        "*://hckrnews.com/*",
+        "*://youtube.com/*",
+        "*://*.youtube.com/*"
+      ],
+      "js": ["extractors.js", "content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
