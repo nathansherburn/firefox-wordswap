@@ -7,6 +7,10 @@ class SiteExtractors {
       return this.hackerNewsExtractor;
     }
     
+    if (hostname.includes('twitter.com') || hostname.includes('x.com')) {
+      return this.twitterExtractor;
+    }
+    
     // Add more extractors as needed
     return null;
   }
@@ -21,6 +25,22 @@ class SiteExtractors {
       extractText: (element) => {
         // Only extract direct text content, skip nested elements
         return SiteExtractors.getDirectTextContent(element);
+      }
+    };
+  }
+
+  // Twitter/X - extract tweet text
+  static twitterExtractor() {
+    return {
+      name: 'twitter-tweets',
+      selectors: [
+        '[data-testid="tweetText"]' // Tweet text content
+      ],
+      extractText: (element) => {
+        // Get all text content including nested spans
+        const text = element.textContent.trim();
+        console.log('SiteExtractors: Twitter text extracted:', text);
+        return text;
       }
     };
   }
